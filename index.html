@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>My Heart Beats Only For You, MOMO 💝</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Great+Vibes&family=Poppins:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-heart">💖</div>
+        <div class="loading-text">Preparing something magical for MOMO...</div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
+    
+    <!-- Constellation Background -->
+    <div class="constellation"></div>
+    
+    <!-- Floating Hearts Container -->
+    <div class="floating-hearts-container" id="floatingHeartsContainer"></div>
+    
+    <!-- Love Counter -->
+    <div class="love-counter">
+        <div class="counter-text">Love Interactions Today</div>
+        <div class="love-score" id="loveScore">0</div>
+    </div>
+    
+    <!-- Floating Action Menu -->
+    <div class="floating-action-menu">
+        <div class="fab-options" id="fabOptions">
+            <div class="fab-option" data-action="music">🎵</div>
+            <div class="fab-option" data-action="hearts">💕</div>
+            <div class="fab-option" data-action="message">💌</div>
+            <div class="fab-option" data-action="shake">✨</div>
+        </div>
+        <div class="fab-main" id="fabMain">💖</div>
+    </div>
+    
+    <!-- Swipe Indicator -->
+    <div class="swipe-indicator" id="swipeIndicator">
+        <span>👆</span>
+        <span>Swipe photos to explore</span>
+    </div>
+    
+    <div class="container">
+        <!-- Main Love Letter -->
+        <div class="soul-letter">
+            <h1 class="eternal-title" id="mainTitle">My Dearest MOMO, My Soul's Other Half</h1>
+            
+            <div class="interactive-message" id="loveMessage">
+                "My beloved Chayanika, my precious MOMO,<br><br>
+                
+                Though oceans separate us and miles stretch between our hearts, know that every sunrise reminds me of your radiant smile, every sunset carries my whispered 'I love you' to your dreams. Distance means nothing when someone means everything.<br><br>
+                
+                Tap anywhere on this message to feel my love pulse through the screen 💕"
+            </div>
+            
+            <div class="love-metrics">
+                <div class="metric-card" data-metric="thoughts">
+                    <div class="metric-number">∞</div>
+                    <div class="metric-label">Daily Thoughts of You</div>
+                </div>
+                <div class="metric-card" data-metric="hours">
+                    <div class="metric-number">24/7</div>
+                    <div class="metric-label">Hours Missing You</div>
+                </div>
+                <div class="metric-card" data-metric="love">
+                    <div class="metric-number">1000%</div>
+                    <div class="metric-label">How Much I Adore You</div>
+                </div>
+                <div class="metric-card" data-metric="forever">
+                    <div class="metric-number">Always</div>
+                    <div class="metric-label">Duration of My Love</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Interactive Photo Gallery -->
+        <div class="dreamy-gallery">
+            <div class="gallery-header">
+                <h2 class="gallery-title">Your Beautiful Moments</h2>
+                <div class="swipe-instruction">← Swipe left/right to explore →</div>
+            </div>
+            
+            <div class="photo-carousel" id="photoCarousel">
+                <div class="photo-track" id="photoTrack">
+                    <!-- Photos will be dynamically loaded here -->
+                </div>
+            </div>
+            
+            <div class="carousel-dots" id="carouselDots">
+                <!-- Dots will be dynamically created -->
+            </div>
+        </div>
+        
+        <!-- Interactive Love Actions -->
+        <div class="love-actions">
+            <div class="action-card" data-action="heartRain">
+                <div class="action-icon">💖</div>
+                <div class="action-text">Send Heart Rain</div>
+            </div>
+            <div class="action-card" data-action="loveQuote">
+                <div class="action-icon">💌</div>
+                <div class="action-text">Random Love Note</div>
+            </div>
+            <div class="action-card" data-action="missYou">
+                <div class="action-icon">🌙</div>
+                <div class="action-text">I Miss You</div>
+            </div>
+            <div class="action-card" data-action="dreamTogether">
+                <div class="action-icon">✨</div>
+                <div class="action-text">Dream Together</div>
+            </div>
+        </div>
+        
+        <!-- Interactive Promise -->
+        <div class="interactive-promise" id="promiseCard">
+            <div class="promise-title">My Sacred Promise</div>
+            <div class="promise-text" id="promiseText">
+                "I promise that every day we're apart only makes my love grow stronger. I promise that when we finally meet, I'll make up for every hug we couldn't share, every kiss we couldn't steal, every moment we couldn't spend together. You are worth every mile, every wait, every lonely night. You are my forever, MOMO."
+            </div>
+            <div class="double-tap-indicator">Double tap for surprise 💕</div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
