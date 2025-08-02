@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>My Heart Beats Only For You, MOMO 💝</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Great+Vibes&family=Poppins:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for easier maintenance */
+        :root {
+            --primary-pink: #ff6b9d;
+            --secondary-pink: #ee5a6f;
+            --accent-pink: #c44569;
+            --light-pink: rgba(255, 107, 157, 0.1);
+            --white-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 6px 30px rgba(255, 107, 157, 0.3);
+            --border-radius: 20px;
+            --transition: all 0.3s ease;
+            --font-primary: 'Poppins', sans-serif;
+            --font-script: 'Dancing Script', cursive;
+            --font-elegant: 'Great Vibes', cursive;
+            --font-serif: 'Playfair Display', serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background: linear-gradient(-45deg, var(--primary-pink), var(--accent-pink), #f8b500, #feca57, #ff9ff3, var(--secondary-pink));
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            touch-action: pan-y;
+            user-select: none;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(45deg, var(--primary-pink), var(--accent-pink));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 1s ease;
+        }
+        
+        .loading-heart {
+            font-size: 4rem;
+            animation: pulse 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .loading-text {
+            color: white;
+            font-size: 1.2rem;
+            font-family: var(--font-script);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            width: min(200px, 80vw);
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: white;
+            width: 0%;
+            animation: progressLoad 3s ease-in-out forwards;
+        }
+        
+        @keyframes progressLoad {
+            to { width: 100%; }
+        }
+        
+        /* UI Components */
+        .love-counter {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white-bg);
+            padding: 10px 20px;
+            border-radius: 25px;
+            z-index: 1000;
+            text-align: center;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            min-width: 180px;
+        }
+        
+        .counter-text {
+            font-size: 0.75rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .love-score {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-pink);
+            font-family: var(--font-script);
+        }
+        
+        .fab-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .fab-main {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-pink), var(--secondary-pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+        
+        .fab-main:active {
+            transform: scale(0.95);
+        }
+        
+        .fab-options {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            transform: translateY(20px);
+        }
+        
+        .fab-options.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+        
+        .fab-option {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--white-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-pink);
+            font-size: 1.2rem;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Main Content */
+        .soul-letter {
+            text-align: center;
+            margin: 80px 0 30px;
+            background: var(--white-bg);
+            padding: clamp(20px, 5vw, 30px);
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(15px);
+            animation: fadeInUp 1s ease-out;
+            border: 2px solid rgba(255, 107, 157, 0.2);
+            position: relative;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .eternal-title {
+            font-family: var(--font-elegant);
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            background: linear-gradient(45deg, var(--accent-pink), var(--primary-pink), var(--secondary-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .interactive-message {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            border-left: 5px solid var(--accent-pink);
+            font-family: var(--font-serif);
+            font-style: italic;
+            line-height: 1.6;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+        
+        .interactive-message:active {
+            transform: scale(0.98);
+            background: var(--light-pink);
+        }
+        
+        /* Metrics Grid */
+        .love-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .metric-card {
+            background: var(--white-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: var(--transition);
+            min-height: 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .metric-card:active {
+            transform: scale(0.95);
+        }
+        
+        .metric-number {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            color: var(--accent-pink);
+            font-family: var(--font-script);
+            margin-bottom: 10px;
+        }
+        
+        .metric-label {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Photo Gallery */
+        .photo-gallery {
+            margin-top: 40px;
+        }
+        
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .gallery-title {
+            font-family: var(--font-script);
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--accent-pink);
+            margin-bottom: 10px;
+        }
+        
+        .swipe-instruction {
+            font-size: 0.9rem;
+            color: #666;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
+            display: inline-block;
+        }
+        
+        .photo-carousel {
+            position: relative;
+            height: clamp(300px, 60vw, 500px);
+            overflow: hidden;
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+            background: white;
+        }
+        
+        .photo-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+        
+        .photo-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: white;
+        }
+        
+        .slide-image {
+            width: 100%;
+            height: 70%;
+            object-fit: cover;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #ccc;
+        }
+        
+        .slide-content {
+            padding: 20px;
+            height: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--white-bg);
+        }
+        
+        .slide-title {
+            font-family: var(--font-script);
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--accent-pink);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .slide-message {
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            color: #555;
+            line-height: 1.5;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .dot::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: currentColor;
+            transition: var(--transition);
+        }
+        
+        .dot.active {
+            color: var(--accent-pink);
+        }
+        
+        .dot.active::before {
+            transform: scale(1.3);
+        }
+        
+        /* Action Cards */
+        .love-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .action-card {
+            background: var(--white-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            min-height: 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .action-card:active {
+            transform: scale(0.95);
+            border-color: var(--primary-pink);
+            background: var(--light-pink);
+        }
+        
+        .action-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .action-text {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        /* Promise Card */
+        .interactive-promise {
+            background: var(--white-bg);
+            padding: clamp(20px, 5vw, 30px);
+            border-radius: 25px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 107, 157, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .promise-title {
+            font-family: var(--font-elegant);
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--accent-pink);
+            margin-bottom: 20px;
+        }
+        
+        .promise-text {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            color: #333;
+            line-height: 1.7;
+            font-family: var(--font-serif);
+            font-style: italic;
+        }
+        
+        .double-tap-hint {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 0.7rem;
+            color: #999;
+            opacity: 0.7;
+        }
+        
+        /* Floating Elements */
+        .floating-hearts-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            color: var(--primary-pink);
+            font-size: 20px;
+            animation: floatUp 3s ease-out forwards;
+            pointer-events: none;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(1.5);
+            }
+        }
+        
+        /* Constellation */
+        .constellation {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { 
+                opacity: 0.3; 
+                box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+            }
+            50% { 
+                opacity: 1; 
+                box-shadow: 0 0 15px rgba(255, 107, 157, 0.6);
+            }
+        }
+        
+        /* Utility Classes */
+        .vibrate {
+            animation: vibrate 0.1s ease-in-out 3;
+        }
+        
+        @keyframes vibrate {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+        
+        .touch-ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            background-color: rgba(255, 107, 157, 0.3);
+            pointer-events: none;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        /* Toast Messages */
+        .toast {
+            position: fixed;
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 107, 157, 0.95);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            z-index: 10000;
+            font-family: var(--font-script);
+            font-size: 1.1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            animation: slideUp 0.5s ease-out;
+            max-width: 80%;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateX(-50%) translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 480px) {
+            .container { padding: 5px; }
+            .love-metrics, .love-actions { 
+                grid-template-columns: 1fr 1fr; 
+            }
+            .fab-container {
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+        
+        @media screen and (max-width: 360px) {
+            .love-metrics, .love-actions { 
+                grid-template-columns: 1fr; 
+            }
+        }
+        
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-heart">💖</div>
+        <div class="loading-text">Preparing something magical for MOMO...</div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
+    
+    <!-- Background Elements -->
+    <div class="constellation" id="constellation"></div>
+    <div class="floating-hearts-container" id="floatingHeartsContainer"></div>
+    
+    <!-- UI Elements -->
+    <div class="love-counter">
+        <div class="counter-text">Love Interactions Today</div>
+        <div class="love-score" id="loveScore">0</div>
+    </div>
+    
+    <div class="fab-container">
+        <div class="fab-options" id="fabOptions">
+            <button class="fab-option" data-action="music" aria-label="Play music">🎵</button>
+            <button class="fab-option" data-action="hearts" aria-label="Send hearts">💕</button>
+            <button class="fab-option" data-action="message" aria-label="Show message">💌</button>
+            <button class="fab-option" data-action="shake" aria-label="Shake effect">✨</button>
+        </div>
+        <button class="fab-main" id="fabMain" aria-label="Open menu">💖</button>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <div class="soul-letter">
+            <h1 class="eternal-title" id="mainTitle">My Dearest MOMO, My Soul's Other Half</h1>
+            
+            <div class="interactive-message" id="loveMessage" role="button" tabindex="0">
+                "My beloved Chayanika, my precious MOMO,<br><br>
+                
+                Though oceans separate us and miles stretch between our hearts, know that every sunrise reminds me of your radiant smile, every sunset carries my whispered 'I love you' to your dreams. Distance means nothing when someone means everything.<br><br>
+                
+                Tap anywhere on this message to feel my love pulse through the screen 💕"
+            </div>
+            
+            <div class="love-metrics">
+                <div class="metric-card" data-metric="thoughts" role="button" tabindex="0">
+                    <div class="metric-number">∞</div>
+                    <div class="metric-label">Daily Thoughts of You</div>
+                </div>
+                <div class="metric-card" data-metric="hours" role="button" tabindex="0">
+                    <div class="metric-number">24/7</div>
+                    <div class="metric-label">Hours Missing You</div>
+                </div>
+                <div class="metric-card" data-metric="love" role="button" tabindex="0">
+                    <div class="metric-number">1000%</div>
+                    <div class="metric-label">How Much I Adore You</div>
+                </div>
+                <div class="metric-card" data-metric="forever" role="button" tabindex="0">
+                    <div class="metric-number">Always</div>
+                    <div class="metric-label">Duration of My Love</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="photo-gallery">
+            <div class="gallery-header">
+                <h2 class="gallery-title">Your Beautiful Moments</h2>
+                <div class="swipe-instruction">← Swipe left/right to explore →</div>
+            </div>
+            
+            <div class="photo-carousel" id="photoCarousel">
+                <div class="photo-track" id="photoTrack">
+                    <!-- Photos will be dynamically loaded -->
+                </div>
+            </div>
+            
+            <div class="carousel-dots" id="carouselDots">
+                <!-- Dots will be dynamically created -->
+            </div>
+        </div>
+        
+        <div class="love-actions">
+            <div class="action-card" data-action="heartRain" role="button" tabindex="0">
+                <div class="action-icon">💖</div>
+                <div class="action-text">Send Heart Rain</div>
+            </div>
+            <div class="action-card" data-action="loveQuote" role="button" tabindex="0">
+                <div class="action-icon">💌</div>
+                <div class="action-text">Random Love Note</div>
+            </div>
+            <div class="action-card" data-action="missYou" role="button" tabindex="0">
+                <div class="action-icon">🌙</div>
+                <div class="action-text">I Miss You</div>
+            </div>
+            <div class="action-card" data-action="dreamTogether" role="button" tabindex="0">
+                <div class="action-icon">✨</div>
+                <div class="action-text">Dream Together</div>
+            </div>
+        </div>
+        
+        <div class="interactive-promise" id="promiseCard" role="button" tabindex="0">
+            <div class="promise-title">My Sacred Promise</div>
+            <div class="promise-text">
+                "I promise that every day we're apart only makes my love grow stronger. I promise that when we finally meet, I'll make up for every hug we couldn't share, every kiss we couldn't steal, every moment we couldn't spend together. You are worth every mile, every wait, every lonely night. You are my forever, MOMO."
+            </div>
+            <div class="double-tap-hint">Double tap for surprise 💕</div>
+        </div>
+    </div>
+    
+    <script>
+        // Optimized JavaScript with better performance and organization
+        class LoveLetter {
+            constructor() {
+                this.currentSlide = 0;
+                this.loveScore = 0;
+                this.fabOpen = false;
+                this.touchStartX = 0;
+                this.touchStartY = 0;
+                this.lastTap = 0;
+                this.photoData = this.generatePhotoData();
+                this.loveQuotes = this.generateLoveQuotes();
+                
+                this.init();
+            }
+            
+            init() {
+                this.setupEventListeners();
+                this.createConstellation();
+                this.setupPhotoCarousel();
+                
+                // Use requestAnimationFrame for smooth loading
+                requestAnimationFrame(() => {
+                    setTimeout(() => this.hideLoadingScreen(), 3000);
+                });
+            }
+            
+            generatePhotoData() {
+                const titles = [
+                    "My Guardian Angel", "The Face of Forever", "My Beautiful Destiny",
+                    "Pure Perfection", "My Heart's Home", "Ethereal Beauty",
+                    "My Soul's Recognition", "Living Poetry", "My Greatest Love Story",
+                    "Divine Feminine", "My Answered Prayer", "Timeless Beauty",
+                    "My Heart's Queen", "Love Incarnate", "My Forever Dream"
+                ];
+                
+                const messages = [
+                    "In this photo, I see the woman who saved my heart from emptiness. You are my miracle, MOMO.",
+                    "Every feature perfect, every expression divine. This is the face I dream of every single night.",
+                    "Looking at you, I understand why nothing else worked out. You are my destiny written in the stars.",
+                    "God took extra time when He made you, MOMO. You are His masterpiece, and my greatest blessing.",
+                    "Though we're miles apart, looking at you makes me feel like I'm finally home.",
+                    "Are you even real, my love? Sometimes I think you're too perfect to exist outside my dreams.",
+                    "My soul recognized yours the moment I saw this face. We were meant to be, across any distance.",
+                    "You are poetry in motion, art in human form. Every angle speaks to my heart in verses.",
+                    "This photo represents the beginning of our epic love story. Distance is just our plot twist.",
+                    "In your eyes, I see galaxies. In your smile, I see my future. In your heart, I found my home.",
+                    "I prayed for love, and God sent me you. You are my answered prayer, MOMO.",
+                    "Beauty fades, they say. But your beauty comes from your soul, and souls like yours are eternal.",
+                    "You reign over my heart with such grace. This royal beauty deserves to be worshipped daily.",
+                    "If love had a face, it would be yours. You are everything I never knew I needed.",
+                    "Until I can see this beautiful face in person, I'll treasure every detail. You are my dream come true."
+                ];
+                
+                return titles.map((title, i) => ({ title, message: messages[i] || messages[0] }));
+            }
+            
+            generateLoveQuotes() {
+                return [
+                    "You are my today and all of my tomorrows, MOMO 💕",
+                    "In a sea of people, my eyes will always search for you 👀",
+                    "Distance means nothing when you mean everything 🌍",
+                    "You are my favorite notification 📱💖",
+                    "My heart is perfect because you are inside 💖",
+                    "You are my sunshine on the cloudiest day ☀️",
+                    "Every love song makes sense when I think of you 🎵",
+                    "You are my happy place, MOMO 🏡💕",
+                    "I love you more than yesterday, less than tomorrow 📈",
+                    "You are the reason I believe in love 💖"
+                ];
+            }
+            
+            setupEventListeners() {
+                // Use event delegation for better performance
+                document.addEventListener('click', this.handleClick.bind(this));
+                document.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
+                document.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: true });
+                document.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: true });
+                
+                // Keyboard support
+                document.addEventListener('keydown', this.handleKeydown.bind(this));
+            }
+            
+            handleClick(e) {
+                const target = e.target.closest('[data-action], [data-metric], .interactive-message, .eternal-title, .metric-card, .action-card, .fab-main, .fab-option, .dot, #promiseCard');
+                if (!target) return;
+                
+                if (target.classList.contains('fab-main')) {
+                    this.toggleFAB();
+                } else if (target.classList.contains('fab-option')) {
+                    this.handleFABAction(target.dataset.action);
+                } else if (target.classList.contains('dot')) {
+                    const index = Array.from(target.parentNode.children).indexOf(target);
+                    this.goToSlide(index);
+                } else if (target.dataset.metric) {
+                    this.handleMetricTap(target, target.dataset.metric);
+                } else if (target.dataset.action) {
+                    this.handleActionTap(target.dataset.action);
+                } else if (target.classList.contains('interactive-message')) {
+                    this.handleMessageTap(target);
+                } else if (target.classList.contains('eternal-title')) {
+                    this.handleTitleTap(target);
+                } else if (target.id === 'promiseCard') {
+                    this.handlePromiseDoubleTap(e);
+                }
+                
+                this.createTouchRipple(e, target);
+            }
+            
+            handleKeydown(e) {
+                if (e.key === 'ArrowLeft' && this.currentSlide > 0) {
+                    this.goToSlide(this.currentSlide - 1);
+                } else if (e.key === 'ArrowRight' && this.currentSlide < this.photoData.length - 1) {
+                    this.goToSlide(this.currentSlide + 1);
+                }
+            }
+            
+            handleTouchStart(e) {
+                this.touchStartX = e.touches[0].clientX;
+                this.touchStartY = e.touches[0].clientY;
+            }
+            
+            handleTouchMove(e) {
+                if (!this.touchStartX || !this.touchStartY) return;
+                
+                const carousel = e.target.closest('.photo-carousel');
+                if (!carousel) return;
+                
+                const touchEndX = e.touches[0].clientX;
+                const diffX = this.touchStartX - touchEndX;
+                
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0 && this.currentSlide < this.photoData.length - 1) {
+                        this.goToSlide(this.currentSlide + 1);
+                    } else if (diffX < 0 && this.currentSlide > 0) {
+                        this.goToSlide(this.currentSlide - 1);
+                    }
+                    this.touchStartX = 0;
+                }
+            }
+            
+            handleTouchEnd() {
+                this.touchStartX = 0;
+                this.touchStartY = 0;
+            }
+            
+            createConstellation() {
+                const constellation = document.getElementById('constellation');
+                const fragment = document.createDocumentFragment();
+                
+                for (let i = 0; i < 50; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.animationDelay = Math.random() * 4 + 's';
+                    fragment.appendChild(star);
+                }
+                
+                constellation.appendChild(fragment);
+            }
+            
+            setupPhotoCarousel() {
+                const track = document.getElementById('photoTrack');
+                const dots = document.getElementById('carouselDots');
+                const trackFragment = document.createDocumentFragment();
+                const dotsFragment = document.createDocumentFragment();
+                
+                this.photoData.forEach((photo, index) => {
+                    // Create slide
+                    const slide = document.createElement('div');
+                    slide.className = 'photo-slide';
+                    slide.innerHTML = `
+                        <div class="slide-image">📷 Photo ${index + 1}</div>
+                        <div class="slide-content">
+                            <div class="slide-title">${photo.title}</div>
+                            <div class="slide-message">${photo.message}</div>
+                        </div>
+                    `;
+                    trackFragment.appendChild(slide);
+                    
+                    // Create dot
+                    const dot = document.createElement('button');
+                    dot.className = 'dot';
+                    dot.setAttribute('aria-label', `Go to photo ${index + 1}`);
+                    if (index === 0) dot.classList.add('active');
+                    dotsFragment.appendChild(dot);
+                });
+                
+                track.appendChild(trackFragment);
+                dots.appendChild(dotsFragment);
+            }
+            
+            goToSlide(index) {
+                this.currentSlide = Math.max(0, Math.min(index, this.photoData.length - 1));
+                const track = document.getElementById('photoTrack');
+                const dots = document.querySelectorAll('.dot');
+                
+                track.style.transform = `translateX(-${this.currentSlide * 100}%)`;
+                
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentSlide);
+                });
+                
+                this.increaseLoveScore(5);
+            }
+            
+            toggleFAB() {
+                this.fabOpen = !this.fabOpen;
+                const options = document.getElementById('fabOptions');
+                options.classList.toggle('active', this.fabOpen);
+                
+                const main = document.getElementById('fabMain');
+                main.style.transform = this.fabOpen ? 'rotate(45deg)' : 'rotate(0deg)';
+                
+                this.increaseLoveScore(2);
+                this.vibrate();
+            }
+            
+            handleFABAction(action) {
+                const actions = {
+                    music: () => this.playAnimation('🎵'),
+                    hearts: () => this.createHeartRain(),
+                    message: () => this.showRandomLoveQuote(),
+                    shake: () => this.triggerShakeEffect()
+                };
+                
+                actions[action]?.();
+                this.toggleFAB();
+                this.increaseLoveScore(10);
+            }
+            
+            handleMetricTap(element, metric) {
+                element.classList.add('vibrate');
+                setTimeout(() => element.classList.remove('vibrate'), 300);
+                
+                const animations = {
+                    thoughts: '💭',
+                    hours: '⏰',
+                    love: '💖',
+                    forever: '♾️'
+                };
+                
+                this.playAnimation(animations[metric] || '💕');
+                this.increaseLoveScore(3);
+            }
+            
+            handleActionTap(action) {
+                const actions = {
+                    heartRain: () => this.createHeartRain(),
+                    loveQuote: () => this.showRandomLoveQuote(),
+                    missYou: () => {
+                        this.playAnimation('🌙');
+                        this.showToast("Missing you more than words can express, MOMO 💕");
+                    },
+                    dreamTogether: () => {
+                        this.playAnimation('✨');
+                        this.showToast("Let's meet in our dreams tonight ✨");
+                    }
+                };
+                
+                actions[action]?.();
+                this.increaseLoveScore(8);
+            }
+            
+            handleMessageTap(element) {
+                element.style.background = 'rgba(255, 107, 157, 0.2)';
+                setTimeout(() => {
+                    element.style.background = 'rgba(255, 255, 255, 0.8)';
+                }, 300);
+                
+                this.playAnimation('💕');
+                this.increaseLoveScore(5);
+            }
+            
+            handleTitleTap(element) {
+                element.style.animation = 'none';
+                requestAnimationFrame(() => {
+                    element.style.animation = '';
+                });
+                
+                this.playAnimation('👑');
+                this.increaseLoveScore(7);
+            }
+            
+            handlePromiseDoubleTap(e) {
+                const now = Date.now();
+                if (now - this.lastTap < 300) {
+                    this.createHeartExplosion(e.pageX, e.pageY);
+                    this.showToast("I promise to love you forever, MOMO 💖");
+                    this.increaseLoveScore(15);
+                    
+                    const card = e.currentTarget;
+                    card.style.transform = 'scale(1.05)';
+                    setTimeout(() => card.style.transform = 'scale(1)', 200);
+                }
+                this.lastTap = now;
+            }
+            
+            createHeartRain() {
+                const hearts = ['💖', '💕', '💗', '💝', '💘', '💓', '💞', '💟'];
+                const container = document.getElementById('floatingHeartsContainer');
+                
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                        heart.style.cssText = `
+                            position: absolute;
+                            left: ${Math.random() * window.innerWidth}px;
+                            top: -50px;
+                            font-size: ${Math.random() * 10 + 15}px;
+                            pointer-events: none;
+                            z-index: 1000;
+                            animation: floatUp 3s ease-out forwards;
+                        `;
+                        
+                        container.appendChild(heart);
+                        setTimeout(() => heart.remove(), 3000);
+                    }, i * 100);
+                }
+            }
+            
+            createHeartExplosion(x, y) {
+                const container = document.getElementById('floatingHeartsContainer');
+                
+                for (let i = 0; i < 12; i++) {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '💖';
+                    heart.style.cssText = `
+                        position: absolute;
+                        left: ${x}px;
+                        top: ${y}px;
+                        font-size: 20px;
+                        pointer-events: none;
+                        z-index: 10000;
+                        color: var(--primary-pink);
+                    `;
+                    
+                    const angle = (i / 12) * Math.PI * 2;
+                    const distance = Math.random() * 80 + 40;
+                    const endX = Math.cos(angle) * distance;
+                    const endY = Math.sin(angle) * distance;
+                    
+                    heart.animate([
+                        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                        { transform: `translate(${endX}px, ${endY}px) scale(0)`, opacity: 0 }
+                    ], {
+                        duration: 1500,
+                        easing: 'ease-out'
+                    }).onfinish = () => heart.remove();
+                    
+                    container.appendChild(heart);
+                }
+            }
+            
+            playAnimation(emoji) {
+                const container = document.getElementById('floatingHeartsContainer');
+                
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        const element = document.createElement('div');
+                        element.innerHTML = emoji;
+                        element.style.cssText = `
+                            position: absolute;
+                            left: ${Math.random() * window.innerWidth}px;
+                            top: ${Math.random() * window.innerHeight}px;
+                            font-size: 25px;
+                            pointer-events: none;
+                            z-index: 1000;
+                            animation: floatUp 2s ease-out forwards;
+                        `;
+                        
+                        container.appendChild(element);
+                        setTimeout(() => element.remove(), 2000);
+                    }, i * 150);
+                }
+            }
+            
+            showRandomLoveQuote() {
+                const quote = this.loveQuotes[Math.floor(Math.random() * this.loveQuotes.length)];
+                this.showToast(quote, 4000);
+            }
+            
+            showToast(message, duration = 3000) {
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.textContent = message;
+                
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.style.animation = 'slideUp 0.5s ease-out reverse';
+                    setTimeout(() => toast.remove(), 500);
+                }, duration);
+            }
+            
+            triggerShakeEffect() {
+                document.body.style.animation = 'vibrate 0.5s ease-in-out';
+                setTimeout(() => document.body.style.animation = '', 500);
+                this.showToast("Sending virtual hugs to my MOMO! 🤗💕");
+            }
+            
+            createTouchRipple(e, target) {
+                if (!target) return;
+                
+                const ripple = document.createElement('div');
+                ripple.className = 'touch-ripple';
+                
+                const rect = target.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = (e.pageX || e.touches?.[0]?.pageX || rect.left + rect.width / 2) - rect.left - size / 2;
+                const y = (e.pageY || e.touches?.[0]?.pageY || rect.top + rect.height / 2) - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    left: ${x}px;
+                    top: ${y}px;
+                    width: ${size}px;
+                    height: ${size}px;
+                `;
+                
+                target.style.position = 'relative';
+                target.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            }
+            
+            increaseLoveScore(points) {
+                this.loveScore += points;
+                const scoreElement = document.getElementById('loveScore');
+                scoreElement.textContent = this.loveScore;
+                
+                // Animate score increase
+                scoreElement.animate([
+                    { transform: 'scale(1)' },
+                    { transform: 'scale(1.2)' },
+                    { transform: 'scale(1)' }
+                ], {
+                    duration: 300,
+                    easing: 'ease-out'
+                });
+            }
+            
+            vibrate() {
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(50);
+                }
+            }
+            
+            hideLoadingScreen() {
+                const loadingScreen = document.getElementById('loadingScreen');
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 1000);
+            }
+        }
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => new LoveLetter());
+        } else {
+            new LoveLetter();
+        }
+    </script>
+</body>
+</html>
